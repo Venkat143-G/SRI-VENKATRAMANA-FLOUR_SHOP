@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SRI VENKATRAMANA FLOUR SHOP</title>
+<link rel="icon" type="image/png" href="pindi.png">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body, html {
+  margin:0; padding:0;
+  font-family:'Roboto',sans-serif;
+  background:#111; color:#fff;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+a{text-decoration:none;}
+
+/* Gradient Background */
+.wave-bg{position:fixed;width:200%;height:200%;top:-50%;left:-50%;
+background:linear-gradient(-45deg,#ffb347,#ffcc33,#24c6dc,#514a9d);
+background-size:400% 400%;animation:gradientWave 30s ease infinite;
+z-index:-40; opacity:0.7;}
+@keyframes gradientWave{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* Sparkles */
+.sparkle{position:absolute;width:5px;height:5px;background:#ffd700;border-radius:50%;opacity:0.8;animation:sparkleAnim 3s linear infinite;}
+@keyframes sparkleAnim{0%{transform:translate(0,0) scale(0.5); opacity:0.3;}50%{transform:translate(200px,400px) scale(1); opacity:1;}100%{transform:translate(0,0) scale(0.5); opacity:0.3;}}
+
+/* Streaks */
+.streak{position:absolute; width:3px; height:80px; background:rgba(255,255,255,0.2); top:-100px; left:0; transform:rotate(20deg); animation:streakAnim 5s linear infinite;}
+@keyframes streakAnim{0%{transform:translateY(0) rotate(20deg);}100%{transform:translateY(110vh) rotate(20deg);}}
+
+/* Lens Flares */
+.lens-flare{position:absolute;width:100px;height:100px;background:radial-gradient(circle,rgba(255,255,255,0.2),transparent 70%); border-radius:50%; pointer-events:none; mix-blend-mode:screen;}
+
+/* Left Menu */
+#menuToggle{position:fixed; top:20px; left:20px; z-index:1001; cursor:pointer; width:35px; height:30px; display:flex; flex-direction:column; justify-content:space-between;}
+#menuToggle span{display:block; height:5px; background:#ffd700; border-radius:2px; transition:0.3s;}
+#sideMenu{position:fixed; left:-220px; top:0; width:200px; height:100%; background:rgba(20,20,20,0.95); padding:50px 20px; display:flex; flex-direction:column; gap:20px; transition:0.5s; z-index:1000;}
+#sideMenu a{color:#ffd700; font-weight:600; font-size:18px; transition:0.3s;}
+#sideMenu a:hover{color:#fff;}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(20,20,20,0.9);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 12px 20px;
+  z-index: 900;
+  margin-left: 410px; /* desktop only */
+  backdrop-filter: blur(6px);
+  gap: 30px;
+}
+header h1{font-size:22px;font-weight:700;color:#ffd700;}
+header h3{font-size:17px;font-weight:600;color:#ffd700;}
+header .logo img {height: 60px; width: 130px; border-radius: 6px;}
+
+/* Hero Section */
+.hero {
+  height: 100vh;  /* full screen */
+  display:flex; justify-content:center; align-items:center;
+  text-align:center; position:relative; overflow:hidden;
+}
+.hero h2{font-size:28px; max-width:90%; line-height:1.3; opacity:0;
+  animation:fadeInUp 2s forwards, glow 2s infinite alternate;
+  text-shadow:0 4px 20px rgba(255,215,0,0.6);}
+.hero::after {content:""; position:absolute; top:0; left:0; width:100%; height:100%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); pointer-events:none;}
+
+/* Section Titles */
+section{padding:50px 15px; position:relative; z-index:2;}
+h2.section-title{text-align:center;font-size:28px;margin-bottom:40px;color:#ffd700;position:relative;}
+h2.section-title::after{content:"";width:50px;height:4px;background:#fff;display:block;margin:10px auto 0;border-radius:2px;}
+
+/* About */
+.about{max-width:600px;margin:auto;text-align:center;font-size:16px;line-height:1.7;opacity:0; transform: translateY(30px); transition:all 1s ease;}
+.about.visible{opacity:1; transform:translateY(0);}
+
+/* Products */
+.products .items{display:grid; grid-template-columns:1fr; gap:30px; max-width:500px; margin:auto;}
+.item{background:linear-gradient(145deg,#222,#333); border-radius:20px; padding:15px; text-align:center; box-shadow:0 6px 18px rgba(255,255,255,0.1); transition: transform 0.8s, box-shadow 0.5s, opacity 1s; opacity:0; transform:translateY(30px); perspective:1000px; position:relative; overflow:hidden;}
+.item.visible{opacity:1; transform:translateY(0);}
+.item img{width:100%; height:180px; object-fit:cover; border-radius:15px; border:2px solid #ffd700; transition:0.4s;}
+.item h3{margin:12px 0 8px;color:#ffd700;font-size:18px;}
+.item p{font-size:15px;color:#fff;}
+.item:hover{transform:translateY(-12px) scale(1.08) rotateX(5deg); box-shadow:0 20px 50px rgba(255,215,0,0.5);}
+
+/* Buttons */
+.btn{display:inline-block; margin-top:15px; padding:12px 25px; background: linear-gradient(45deg,#ffd700,#ff8c00); color:#111; border-radius:30px; font-weight:bold; font-size:16px; text-decoration:none; transition:0.3s; box-shadow:0 4px 12px rgba(0,0,0,0.2); position:relative; overflow:hidden;}
+.btn:hover{box-shadow:0 0 40px #ffd700,0 0 70px #ff8c00; transform:scale(1.07);}
+
+/* Contact */
+.contact{max-width:600px;margin:auto;background:linear-gradient(145deg,#222,#111); border-radius:20px; padding:40px 20px; text-align:center; color:#ffd700; box-shadow:0 8px 20px rgba(255,215,0,0.3); opacity:0; transform:translateY(30px); transition:all 1s ease;}
+.contact.visible{opacity:1; transform:translateY(0);}
+.contact p{font-size:16px; margin:8px 0;}
+
+/* Footer */
+footer{background:#111; color:white; text-align:center; padding:15px; margin-top:30px; font-size:14px; z-index:2; position:relative;}
+
+/* Animations */
+@keyframes fadeInUp{0{opacity:0;transform:translateY(50px);}100%{opacity:1;transform:translateY(0);}}
+@keyframes glow{0%{text-shadow:0 0 5px #ffd700,0 0 10px #ffd700;}100%{text-shadow:0 0 18px #ffd700,0 0 35px #ffd700;}}
+
+/* ✅ Mobile Responsive Fix */
+@media (max-width: 768px) {
+  header {
+    margin-left: 0;         /* remove offset */
+    justify-content: center; /* center align */
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+  }
+  header h1 {font-size:18px;}
+  header h3 {font-size:14px; margin-left:0;}
+  .hero {height: 100vh;} /* full screen */
+}
+</style>
+</head>
+<body>
+
+<div class="wave-bg"></div>
+<div class="lens-flare" style="top:30px; left:20%; width:120px; height:120px;"></div>
+<div class="lens-flare" style="top:200px; left:70%; width:80px; height:80px;"></div>
+<div class="lens-flare" style="top:400px; left:40%; width:100px; height:100px;"></div>
+
+<!-- Left Menu -->
+<div id="menuToggle"><span></span><span></span><span></span></div>
+<div id="sideMenu">
+<a href="#about">About</a>
+<a href="#products">Products</a>
+<a href="#contact">Contact</a>
+</div>
+
+<header>
+  <div class="logo"><img src="pindi.png" alt="Shop Logo"></div>
+  <div style="display:flex; flex-direction: column; gap:0px;">
+    <h1>SRI VENKATRAMANA FLOUR SHOP</h1>
+    <h3>IDLY, DOSA MIXER AVAILABLE HERE</h3>
+  </div>
+</header>
+
+<section class="hero"><h2>Fresh Batter for Your Home Tiffins</h2></section>
+
+<section id="about">
+<h2 class="section-title">About Us</h2>
+<div class="about"><p><b>We prepare fresh dosa, idly, and bondalu batter daily using premium ingredients...</b></p></div>
+</section>
+
+<section id="products" class="products">
+<h2 class="section-title">Our Products</h2>
+<div class="items">
+<div class="item"><img src="dosa.png" alt="Dosa Batter"><h3>Dosa Batter</h3><p>Crispy & golden dosas.<br>₹45 / Kg</p></div>
+<div class="item"><img src="idly.png" alt="Idly Batter"><h3>Idly Batter</h3>Soft, fluffy idlys.<br>₹45 / Kg</p></p></div>
+<div class="item"><img src="boba.png" alt="Bondalu Batter"><h3>Bondalu Batter</h3><p>Hot, crispy bondas.<br>₹45 / Kg</p></div>
+</div>
+</section>
+
+<section id="contact">
+<h2 class="section-title">Contact Us</h2>
+<div class="contact">
+<p>📞 +91 9121185401</p>
+<p>📍 #9B, Kumaran Colony Main Road, Vadapalani - 600 026, Chennai</p>
+<a href="https://wa.me/919121185401" class="btn">Chat With WhatsApp</a>
+</div>
+</section>
+
+<footer><p>© 2025 Pindi Shop | All Rights Reserved</p></footer>
+
+<script>
+// Menu Toggle
+const menuToggle=document.getElementById('menuToggle');
+const sideMenu=document.getElementById('sideMenu');
+menuToggle.addEventListener('click',()=>{ 
+  sideMenu.style.left=sideMenu.style.left==='0px'?'-220px':'0px';
+});
+
+// Sparkles
+for(let i=0;i<15;i++){
+  let s=document.createElement('div');
+  s.className='sparkle';
+  s.style.top=Math.random()*100+'vh';
+  s.style.left=Math.random()*100+'vw';
+  s.style.animationDuration=(2+Math.random()*3)+'s';
+  document.body.appendChild(s);
+}
+
+// Streaks
+for(let i=0;i<15;i++){
+  let st=document.createElement('div');
+  st.className='streak';
+  st.style.left=Math.random()*100+'vw';
+  st.style.animationDuration=(3+Math.random()*3)+'s';
+  document.body.appendChild(st);
+}
+
+// Scroll reveal
+const faders=document.querySelectorAll('.about,.item,.contact');
+const appearOptions={threshold:0.3,rootMargin:"0px 0px -50px 0px"};
+const appearOnScroll=new IntersectionObserver(function(entries,observer){
+entries.forEach(entry=>{if(!entry.isIntersecting) return;entry.target.classList.add('visible');observer.unobserve(entry.target);});
+},appearOptions);
+faders.forEach(fader=>appearOnScroll.observe(fader));
+</script>
+</body>
+</html>
